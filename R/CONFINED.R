@@ -6,7 +6,7 @@ message("Loaded Rcpp, compiling cpp code")
 
 #This is a C++ file with the code written for the method
 #It should be available where this file was downloaded
-Rcpp::sourceCpp("tools/rcppCCA.cpp")
+Rcpp::sourceCpp("./tools/rcppCCA.cpp")
 message("Successfully compiled cpp code")
 
 #' General function for quickly performing canonical correlation analysis (CCA)

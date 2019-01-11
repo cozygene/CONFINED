@@ -24,6 +24,7 @@ arma::mat getUV(arma::mat& x, arma::mat& eigspc)
    return(x_centered * eigspc);
  }
 
+//' @export
 // [[Rcpp::export]]
 arma::field<arma::mat> doRCCA(arma::mat& x, arma::mat& y){
 	arma::mat Cxy = cov(x, y); // Amat
