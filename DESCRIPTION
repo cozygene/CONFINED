@@ -1,0 +1,12 @@
+Package: CONFINED
+Title: CCA ON Features for INter-dataset Effect Detection
+Version: 0.0.0.9000
+Authors@R: person("Mike", "Thompson", email = "mjthompson@ucla.edu", role = c("aut", "cre"))
+Description: *CONFINED* was developed for the purpose of capturing replicable sources of biological variability in methylation data. These sources include, for example, age, sex, and cell-type composition. Importantly, the variation captured by *CONFINED* does not include any variability from technical or batch effects. 
+Depends: R (>= 3.3.0),
+		 Rcpp,
+		 RcppArmadillo
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
