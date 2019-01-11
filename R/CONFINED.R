@@ -6,6 +6,9 @@ message("Loaded Rcpp, compiling cpp code")
 
 #This is a C++ file with the code written for the method
 #It should be available where this file was downloaded
+#' @useDynLib CONFINED, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+NULL
 Rcpp::sourceCpp("tools/rcppCCA.cpp")
 message("Successfully compiled cpp code")
 
