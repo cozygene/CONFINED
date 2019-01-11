@@ -6,14 +6,17 @@ message("Loaded Rcpp, compiling cpp code")
 
 #This is a C++ file with the code written for the method
 #It should be available where this file was downloaded
-Rcpp::sourceCpp("./tools/rcppCCA.cpp")
+#' @useDynLib CONFINED, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+NULL
+Rcpp::sourceCpp("./src/rcppCCA.cpp")
 message("Successfully compiled cpp code")
 
 #' General function for quickly performing canonical correlation analysis (CCA)
-#' 
+#'
 #' This function performs CCA on two matrices. As input, it takes
-#' two matrices, \eqn{X} and \eqn{Y},  of size \eqn{m} by \eqn{n_1} and 
-#' \eqn{m} by \eqn{n_2} respectively, where \eqn{m}>\eqn{n_1},\eqn{n_2} (i.e., both 
+#' two matrices, \eqn{X} and \eqn{Y},  of size \eqn{m} by \eqn{n_1} and
+#' \eqn{m} by \eqn{n_2} respectively, where \eqn{m}>\eqn{n_1},\eqn{n_2} (i.e., both
 #' matrices have the same number of rows, but not necessarily the same
 #' number of columns). This code is based on the algorithm by
 #' Gonzalez and Dejean from the package '\code{CCA},' we just simply translated
@@ -32,7 +35,7 @@ CCA = function (X, Y){
   Y<-as.matrix(Y)
   # Check that the input's valid
   if(dim(X)[1] != dim(Y)[1]){
-    stop("Unequal number of rows in the datasets. Ensure that the matrices are in correct orientation, 
+    stop("Unequal number of rows in the datasets. Ensure that the matrices are in correct orientation,
           e.g. the matrix is not transposed. Else, try taking the union of the rows.")
   }
   if(dim(X)[2] > dim(X)[1]){
@@ -40,15 +43,15 @@ CCA = function (X, Y){
   }
   tmp<-doRCCA(X, Y)
   #loadings that project the data into maximally correlated space
-  A<-tmp[[1]] 
+  A<-tmp[[1]]
   B<-tmp[[2]]
-  
+
   #there are only d canonical varibles
   d = min(c(dim(A)[2], dim(B)[2]))
   # s = min(dim(Y_dataframe)[1],dim(X_dataframe)[1]) - 1.
   A = A[,1:d]
   B = B[,1:d]
-  
+
   #return the canonical variables (after doing some centering)
   U = getUV(X, A)
   V = getUV(Y, B)
@@ -57,7 +60,7 @@ CCA = function (X, Y){
 
 #CONFINED's feature selection step
 get_ranked_features = function (X_, Y_, thresh_=.95){
-  #First get a low rank form of the canonical variables 
+  #First get a low rank form of the canonical variables
   tmp = CCA(X_,Y_)
   ncol_=sum(sapply(1:10, function(i) cor(tmp$U[,i], tmp$V[,i]))>= thresh_)
   if(ncol_ < 1){
@@ -66,26 +69,26 @@ get_ranked_features = function (X_, Y_, thresh_=.95){
     message("Setting rank to 1")
     ncol_=1
   }
-  
+
   #Now get a low-rank, correlated form of the input matrices
   Xtilde = t(centerCPP(X_)) %*% tmp$U[,1:ncol_] %*% t(tmp$U)[1:ncol_, ]
   Ytilde = t(centerCPP(Y_)) %*% tmp$V[,1:ncol_] %*% t(tmp$V)[1:ncol_, ]
-  
+
   #Get the correlation of the low-rank and raw input-matrices' rows
   X_feat_cors  = sapply(1:dim(tmp$U)[1], function(i) cor(X_[i,], Xtilde[,i]))
   Y_feat_cors  = sapply(1:dim(tmp$V)[1], function(i) cor(Y_[i,], Ytilde[,i]))
-  
+
   #Average them, then sort them
   feat_cors         = (X_feat_cors + Y_feat_cors)/2.
   feat_cors_sort    = sort(feat_cors, index.return=T, decreasing = T)
   UV_T_ranked_index = feat_cors_sort$ix
   #Return the most correlated indices
-  
+
   return(UV_T_ranked_index )
 }
 
-#' Perform the CONFINED algorithm 
-#' 
+#' Perform the CONFINED algorithm
+#'
 #' Generates components that capture sources of variability that are
 #' shared between two datasets.
 #' @param X1 Input matrices. \eqn{m} by \eqn{n_1} matrix. Must have the same number of rows as \code{X2}
@@ -99,21 +102,21 @@ get_ranked_features = function (X_, Y_, thresh_=.95){
 #' @return X2comps  -  \emph{CONFINED} components for \code{X2}. These capture shared variability between \code{X1} and \code{X2}
 #' @export
 CONFINED<-function(X1, X2, t, k, thresh=.95, outfile="", saveOP=TRUE){
-  
+
   X1<-as.matrix(X1)
   X2<-as.matrix(X2)
-  
+
   #Rank the features
   message("Ranking features...")
   feats<-get_ranked_features(X1, X2, thresh)
-  
+
   #Do CCA using the top t features
   tmp<-CCA(X1[feats[1:t], ], X2[feats[1:t], ])
-  
+
   #Generate CONFINED components
   X1_ccs<-t(X1[feats[1:t], ])%*%tmp$U
   X2_ccs<-t(X2[feats[1:t], ])%*%tmp$V
-  
+
   if(saveOP){
     message("Writing files...")
     if(outfile == ""){
@@ -131,7 +134,7 @@ CONFINED<-function(X1, X2, t, k, thresh=.95, outfile="", saveOP=TRUE){
       write.table(rownames(X1)[feats], quote=F, sep='\t', file = paste0(outfile, "_CONFINED_ranked_features.txt"),
                   row.names = F, col.names = F)
     }
-    
+
   }
   message("Done!")
   return(list(X1_comps = X1_ccs, X2_comps = X2_ccs))
