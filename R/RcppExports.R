@@ -9,7 +9,6 @@ getUV <- function(x, eigspc) {
     .Call(`_CONFINED_getUV`, x, eigspc)
 }
 
-#' @export
 doRCCA <- function(x, y) {
     .Call(`_CONFINED_doRCCA`, x, y)
 }

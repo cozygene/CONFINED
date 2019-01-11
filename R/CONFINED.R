@@ -6,9 +6,6 @@ message("Loaded Rcpp, compiling cpp code")
 
 #This is a C++ file with the code written for the method
 #It should be available where this file was downloaded
-#' @useDynLib CONFINED, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
-NULL
 #Rcpp::sourceCpp("./src/rcppCCA.cpp")
 message("Successfully compiled cpp code")
 
@@ -140,3 +137,6 @@ CONFINED<-function(X1, X2, t, k, thresh=.95, outfile="", saveOP=TRUE){
   return(list(X1_comps = X1_ccs, X2_comps = X2_ccs))
 }
 
+#' @useDynLib CONFINED, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+NULL
