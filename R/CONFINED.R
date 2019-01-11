@@ -9,7 +9,7 @@ message("Loaded Rcpp, compiling cpp code")
 #' @useDynLib CONFINED, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
-Rcpp::sourceCpp("./src/rcppCCA.cpp")
+#Rcpp::sourceCpp("./src/rcppCCA.cpp")
 message("Successfully compiled cpp code")
 
 #' General function for quickly performing canonical correlation analysis (CCA)
