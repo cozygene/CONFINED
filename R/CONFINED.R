@@ -13,12 +13,13 @@ message("Successfully compiled cpp code")
 #'
 #' This function performs CCA on two matrices. As input, it takes
 #' two matrices, \eqn{X} and \eqn{Y},  of size \eqn{m} by \eqn{n_1} and
-#' \eqn{m} by \eqn{n_2} respectively, where \eqn{m}>\eqn{n_1},\eqn{n_2} (i.e., both
+#' \eqn{m} by \eqn{n_2} respectively, where \eqn{m} > \eqn{n_1},\eqn{n_2} (i.e., both
 #' matrices have the same number of rows, but not necessarily the same
-#' number of columns). This code is based on the algorithm by
-#' Gonzalez and Dejean from the package '\code{CCA},' we just simply translated
-#' it to C++ using functions from RcppArmadillo for speed. The canonical variables are returned
-#' in decreasing order of correlation. See \code{https://github.com/cozygene/CONFINED} for more info.
+#' number of columns and the number of rows is greater than the number of columns).
+#' This code is based on the algorithm by Gonzalez and Dejean from the package '\code{CCA},'
+#'  we just simply translated it to C++ using functions from RcppArmadillo for speed.
+#'  The canonical variables are returned in decreasing order of correlation.
+#'  See \code{https://github.com/cozygene/CONFINED} for more info.
 #' @param X \eqn{m} by \eqn{n_1} matrix
 #' @param Y \eqn{m} by \eqn{n_2} matrix
 #' @return A  -  the loadings for \eqn{X}
@@ -91,7 +92,7 @@ get_ranked_features = function (X_, Y_, thresh_=.95){
 #' @param X1 Input matrices. \eqn{m} by \eqn{n_1} matrix. Must have the same number of rows as \code{X2}
 #' @param X2 Input matrices. \eqn{m} by \eqn{n_2} matrix. Must have the same number of rows as \code{X1}
 #' @param t Number of rows (e.g. methylation sites) to use
-#' @param k Number of CONFINED components to produce (up to min\{\eqn{n_1}, \eqn{n_2}\})
+#' @param k Number of CONFINED components to produce (up to min\{\eqn{n_1}, \eqn{n_2 }\})
 #' @param thresh Correlation threshold for selecting the number of canonical variables to use when generating the low-rank approximations in the feature selection step
 #' @param outfile Prefix for saving the results
 #' @param saveOP Boolean flag for saving the components/feature ranks to a txt file

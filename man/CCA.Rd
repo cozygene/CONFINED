@@ -25,10 +25,11 @@ cors - the correlations of each corresponding pair of canonical variables e.g. c
 \description{
 This function performs CCA on two matrices. As input, it takes
 two matrices, \eqn{X} and \eqn{Y},  of size \eqn{m} by \eqn{n_1} and
-\eqn{m} by \eqn{n_2} respectively, where \eqn{m}>\eqn{n_1},\eqn{n_2} (i.e., both
+\eqn{m} by \eqn{n_2} respectively, where \eqn{m} > \eqn{n_1},\eqn{n_2} (i.e., both
 matrices have the same number of rows, but not necessarily the same
-number of columns). This code is based on the algorithm by
-Gonzalez and Dejean from the package '\code{CCA},' we just simply translated
-it to C++ using functions from RcppArmadillo for speed. The canonical variables are returned
-in decreasing order of correlation. See \code{https://github.com/cozygene/CONFINED} for more info.
+number of columns and the number of rows is greater than the number of columns).
+This code is based on the algorithm by Gonzalez and Dejean from the package '\code{CCA},'
+ we just simply translated it to C++ using functions from RcppArmadillo for speed.
+ The canonical variables are returned in decreasing order of correlation.
+ See \code{https://github.com/cozygene/CONFINED} for more info.
 }
