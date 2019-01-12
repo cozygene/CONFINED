@@ -26,7 +26,7 @@ The following inputs are optional:
 -  _X1comps_ the _k_ components for dataset1 produced by _CONFINED_ using _t_ features
 -  _X2comps_ the _k_ components for dataset2 produced by _CONFINED_ using _t_ features
 
-
+### Demo
 We provide two subsets of whole-blood methylation datasets from Liu et al.[1] and Hannum et al.[2] for an example of CONFINED's usage. Download the demo files <a href="https://mj-thompson.github.io/data/CONFINED_demo.zip">here</a>.
 
 First load the **CONFINED** packages into R:
