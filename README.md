@@ -64,14 +64,14 @@ The call to sapply will return a matrix where each entry _ij_ corresponds to the
 ## An ultra-fast implementation for canonical correlation analysis (CCA)
 If you only wish to use this software for performing quick canonical correlation analysis, it can be accessed from the *CONFINED* package:
 ```
-CONFINED(CCA)
+CONFINED::CCA(X,Y)
 ```
-_A_ and _B_ are the loadings that will project _X_ and _Y_ into maximally correlated space. _U=XA_ and _V=YB_ are defined as the canonical variables of _X_ and _Y_, where the columns of _X_ and _Y_ have been centered in order to make the columns of U orthogonal to each other as well as the columns of V orthogonal to each other. 
+_A_ and _B_ are the loadings that will project input matrices _X_ and _Y_ into maximally correlated space. _U=XA_ and _V=YB_ are defined as the canonical variables of _X_ and _Y_, where the columns of _X_ and _Y_ have been centered in order to make the columns of U orthogonal to each other as well as the columns of V orthogonal to each other. 
 
 Our CCA algorithm is entirely based on that of R package **CCA** by Gonzalez and Dejean. We simply translated their code into C++ code using packages from **RcppArmadillo**, and all credit for the algorithm goes to them.
 
 
-##Troubleshooting
+## Troubleshooting
 OSX (Mac) may have a problem where "math.h" is not found. This can usually be mitigated by running in the Terminal:
 ```
 xcode-select --install
@@ -178,16 +178,16 @@ sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
 </p>
 </details>
 
-## 3.4.x
+### 3.4.x
 <details><summary>Instructions</summary>
-The same link from the 3.5.x section will still be of help. You may try installing the tools from The coatless professor listed [here](https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg)
+The same link from the 3.5.x section will still be of help. You may try installing <a href="https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg">these tools</a> from The coatless professor.
 </p>
 </details>
 
-## 3.0.0-3.3.x
+### 3.0.0-3.3.x
 <details><summary>Instructions</summary>
 
-Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/)
+Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/).
 Open the terminal and make sure xcode and gcc are installed:
 ```
 xcode-select --install
@@ -204,6 +204,9 @@ sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 ```
 </p>
 </details>
+
+
+
 
 [1]Yun  Liu,  Martin  J  Aryee,  Leonid  Padyukov,  M  Daniele  Fallin,  Espen  Hesselberg,  Arni Runarsson,  Lovisa  Reinius,  Nathalie  Acevedo,  Margaret  Taub,  Marcus  Ronninger,  Klementy  Shchetynsky,  Annika  Scheynius,  Juha  Kere,  Lars  Alfredsson,  Lars  Klareskog,
 Tomas  J  Ekstrom,  and  Andrew  P  Feinberg.   Epigenome-wide association  data  implicate dna methylation as an intermediary of genetic risk in rheumatoid arthritis. *Nature Biotechnology*, 31:142 EP –, 01 2013.

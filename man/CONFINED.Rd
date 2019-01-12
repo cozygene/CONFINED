@@ -13,7 +13,7 @@ CONFINED(X1, X2, t, k, thresh = 0.95, outfile = "", saveOP = TRUE)
 
 \item{t}{Number of rows (e.g. methylation sites) to use}
 
-\item{k}{Number of CONFINED components to produce}
+\item{k}{Number of CONFINED components to produce (up to min\{\eqn{n_1}, \eqn{n_2}\})}
 
 \item{thresh}{Correlation threshold for selecting the number of canonical variables to use when generating the low-rank approximations in the feature selection step}
 
@@ -28,5 +28,5 @@ X2comps  -  \emph{CONFINED} components for \code{X2}. These capture shared varia
 }
 \description{
 Generates components that capture sources of variability that are
-shared between two datasets.
+shared between two datasets. See \code{https://github.com/cozygene/CONFINED} for more info.
 }

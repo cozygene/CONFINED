@@ -20,7 +20,7 @@ U  -  canonical variables of \eqn{X}, calculated by column centering \eqn{X} and
 
 V  -  canonical variables of \eqn{Y}, calculated by column centering \eqn{Y} and projecting it on \eqn{B}
 
-cors - the correlations of each corresponding pair of canonical variables e.g. cor_\eqn{i} = corr(U[, \eqn{i} ], V[, \eqn{i} ])
+cors - the correlations of each corresponding pair of canonical variables e.g. cors[ \eqn{i} ] = cor(U[, \eqn{i} ], V[, \eqn{i} ])
 }
 \description{
 This function performs CCA on two matrices. As input, it takes
@@ -30,5 +30,5 @@ matrices have the same number of rows, but not necessarily the same
 number of columns). This code is based on the algorithm by
 Gonzalez and Dejean from the package '\code{CCA},' we just simply translated
 it to C++ using functions from RcppArmadillo for speed. The canonical variables are returned
-in decreasing order or correlation.
+in decreasing order of correlation. See \code{https://github.com/cozygene/CONFINED} for more info.
 }

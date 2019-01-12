@@ -18,14 +18,14 @@ message("Successfully compiled cpp code")
 #' number of columns). This code is based on the algorithm by
 #' Gonzalez and Dejean from the package '\code{CCA},' we just simply translated
 #' it to C++ using functions from RcppArmadillo for speed. The canonical variables are returned
-#' in decreasing order or correlation.
+#' in decreasing order of correlation. See \code{https://github.com/cozygene/CONFINED} for more info.
 #' @param X \eqn{m} by \eqn{n_1} matrix
 #' @param Y \eqn{m} by \eqn{n_2} matrix
 #' @return A  -  the loadings for \eqn{X}
 #' @return B  -  the loadings for \eqn{Y}
 #' @return U  -  canonical variables of \eqn{X}, calculated by column centering \eqn{X} and projecting it on \eqn{A}
 #' @return V  -  canonical variables of \eqn{Y}, calculated by column centering \eqn{Y} and projecting it on \eqn{B}
-#' @return cors - the correlations of each corresponding pair of canonical variables e.g. cor_\eqn{i} = corr(U[, \eqn{i} ], V[, \eqn{i} ])
+#' @return cors - the correlations of each corresponding pair of canonical variables e.g. cors[ \eqn{i} ] = cor(U[, \eqn{i} ], V[, \eqn{i} ])
 #' @export
 CCA = function (X, Y){
   X<-as.matrix(X)
@@ -87,11 +87,11 @@ get_ranked_features = function (X_, Y_, thresh_=.95){
 #' Perform the CONFINED algorithm
 #'
 #' Generates components that capture sources of variability that are
-#' shared between two datasets.
+#' shared between two datasets. See \code{https://github.com/cozygene/CONFINED} for more info.
 #' @param X1 Input matrices. \eqn{m} by \eqn{n_1} matrix. Must have the same number of rows as \code{X2}
 #' @param X2 Input matrices. \eqn{m} by \eqn{n_2} matrix. Must have the same number of rows as \code{X1}
 #' @param t Number of rows (e.g. methylation sites) to use
-#' @param k Number of CONFINED components to produce
+#' @param k Number of CONFINED components to produce (up to min\{\eqn{n_1}, \eqn{n_2}\})
 #' @param thresh Correlation threshold for selecting the number of canonical variables to use when generating the low-rank approximations in the feature selection step
 #' @param outfile Prefix for saving the results
 #' @param saveOP Boolean flag for saving the components/feature ranks to a txt file
