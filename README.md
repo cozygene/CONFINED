@@ -15,7 +15,7 @@ Please see troubleshooting at the bottom for compilation issues.
 As input, *CONFINED* takes mandatory arguments:
 - Two matrices of size _m_ by _n1_ and _m_ by _n2_ (the number of rows is the same but not necessarily the same number of columns), where _m_ > both _n1_ and _n2_
 -  _t_ the number of features (methylation sites) to use
--  _k_ the number of components to save (can save up to min{_n1_, _n2_ components})
+-  _k_ the number of components to save (can save up to min{_n1_, _n2_} components)
 
 The following inputs are optional:
 -  _saveOP_ boolean, save the output (_CONFINED_ components for each dataset and the ranked list of features) or not 
@@ -27,7 +27,7 @@ The following inputs are optional:
 -  _X2comps_ the _k_ components for dataset2 produced by _CONFINED_ using _t_ features
 
 
-We provide two subsets of whole-blood methylation datasets from Liu et al.[1] and Hannum et al.[2] for an example of CONFINED's usage. 
+We provide two subsets of whole-blood methylation datasets from Liu et al.[1] and Hannum et al.[2] for an example of CONFINED's usage. Download the demo files <a href="https://mj-thompson.github.io/data/CONFINED_demo.zip">here</a>.
 
 First load the **CONFINED** packages into R:
 ```
@@ -187,13 +187,14 @@ devtools::install_github("cozygene/CONFINED")
 ### 3.4.x
 <details><summary>Instructions</summary>
 The same link from the 3.5.x section will still be of help. You may try installing <a href="https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg">these tools</a> from The coatless professor.
-</p>
-</details>
 
 Now, return to R and try installing *CONFINED* using:
 ```
 devtools::install_github("cozygene/CONFINED")
 ```
+
+</p>
+</details>
 
 
 ### 3.0.0-3.3.x
