@@ -6,7 +6,7 @@ Description: *CONFINED* was developed for the purpose of capturing replicable so
 Depends: R (>= 3.3.0),
 		 Rcpp,
 		 RcppArmadillo
-Imports: Rcpp (>= 1.0.0)
+Imports: Rcpp
 LinkingTo: Rcpp, RcppArmadillo
 License: What license is it under?
 Encoding: UTF-8
