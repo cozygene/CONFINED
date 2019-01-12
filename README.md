@@ -4,7 +4,7 @@
 
 *CONFINED* is implemented in R and requires packages **Rcpp** and **RcppArmadillo**. If you are using a mac and having installation issues, try installing homebrew or xcode prior to installing **Rcpp** and **RcppArmadillo**. 
 
-You can simply install *CONFINED* using **devtools**
+You can simply install *CONFINED* using **devtools**:
 ```
 devtools::install_github("cozygene/CONFINED")
 ```
@@ -175,6 +175,12 @@ rm -rf gfortran-6.1.pkg
 # Establish a symlink of gfortran into /usr/local/bin
 sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
 ```
+
+Now, return to R and try installing *CONFINED* using:
+```
+devtools::install_github("cozygene/CONFINED")
+```
+
 </p>
 </details>
 
@@ -183,6 +189,12 @@ sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
 The same link from the 3.5.x section will still be of help. You may try installing <a href="https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg">these tools</a> from The coatless professor.
 </p>
 </details>
+
+Now, return to R and try installing *CONFINED* using:
+```
+devtools::install_github("cozygene/CONFINED")
+```
+
 
 ### 3.0.0-3.3.x
 <details><summary>Instructions</summary>
@@ -202,16 +214,21 @@ cd /Applications/Utilities
 curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
 sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 ```
+Now, return to R and try installing *CONFINED* using:
+```
+devtools::install_github("cozygene/CONFINED")
+```
+
 </p>
 </details>
+  
+  
 
-
-
-
+  
 [1]Yun  Liu,  Martin  J  Aryee,  Leonid  Padyukov,  M  Daniele  Fallin,  Espen  Hesselberg,  Arni Runarsson,  Lovisa  Reinius,  Nathalie  Acevedo,  Margaret  Taub,  Marcus  Ronninger,  Klementy  Shchetynsky,  Annika  Scheynius,  Juha  Kere,  Lars  Alfredsson,  Lars  Klareskog,
-Tomas  J  Ekstrom,  and  Andrew  P  Feinberg.   Epigenome-wide association  data  implicate dna methylation as an intermediary of genetic risk in rheumatoid arthritis. *Nature Biotechnology*, 31:142 EP –, 01 2013.
-[2]Gregory  Hannum,  Justin  Guinney,  Ling  Zhao,  Li  Zhang,  Guy  Hughes,  SriniVas  Sadda, Brandy Klotzle, Marina Bibikova, Jian-Bing Fan, Yuan Gao, Rob Deconde, Menzies Chen, Indika Rajapakse, Stephen Friend, Trey Ideker, and Kang Zhang. Genome-wide methylation profiles reveal quantitative views of human aging rates. *Molecular  cell*, 49(2):359–367, 01 2013.
-[3] Eugene  Andres  Houseman,  William  P.  Accomando,  Devin  C.  Koestler,  Brock  C.  Christensen, Carmen J. Marsit, Heather H. Nelson, John K. Wiencke, and Karl T. Kelsey.  Dna methylation arrays as surrogate measures of cell mixture distribution. *BMC Bioinformatics*, 13(1):86, May 2012.
+Tomas  J  Ekstrom,  and  Andrew  P  Feinberg.   Epigenome-wide association  data  implicate dna methylation as an intermediary of genetic risk in rheumatoid arthritis. *Nature Biotechnology*, 31:142 EP –, 01 2013.  
+[2]Gregory  Hannum,  Justin  Guinney,  Ling  Zhao,  Li  Zhang,  Guy  Hughes,  SriniVas  Sadda, Brandy Klotzle, Marina Bibikova, Jian-Bing Fan, Yuan Gao, Rob Deconde, Menzies Chen, Indika Rajapakse, Stephen Friend, Trey Ideker, and Kang Zhang. Genome-wide methylation profiles reveal quantitative views of human aging rates. *Molecular  cell*, 49(2):359–367, 01 2013.  
+[3] Eugene  Andres  Houseman,  William  P.  Accomando,  Devin  C.  Koestler,  Brock  C.  Christensen, Carmen J. Marsit, Heather H. Nelson, John K. Wiencke, and Karl T. Kelsey.  Dna methylation arrays as surrogate measures of cell mixture distribution. *BMC Bioinformatics*, 13(1):86, May 2012.  
 
 
 
