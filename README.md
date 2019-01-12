@@ -1,5 +1,5 @@
 # CONFINED - CCA ON Features for INter-dataset Effect Detection
-### An ultra-fast implementation for canonical correlation analysis (CCA)
+### Using an ultra-fast implementation for canonical correlation analysis (CCA)
 *CONFINED* was developed for the purpose of capturing replicable sources of biological variability in methylation data. These sources include, for example, age, sex, and cell-type composition. Importantly, the variation captured by *CONFINED* does not include any variability from technical or batch effects.
 
 *CONFINED* is implemented in R and requires packages **Rcpp** and **RcppArmadillo**. Please install them prior to trying to install *CONFINED*. If you are using a mac and having installation issues, try installing homebrew or xcode prior to installing **Rcpp** and **RcppArmadillo**. 
