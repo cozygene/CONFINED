@@ -2,13 +2,14 @@
 ### An ultra-fast implementation for canonical correlation analysis (CCA)
 *CONFINED* was developed for the purpose of capturing replicable sources of biological variability in methylation data. These sources include, for example, age, sex, and cell-type composition. Importantly, the variation captured by *CONFINED* does not include any variability from technical or batch effects.
 
-*CONFINED* is implemented in R and requires packages **Rcpp** and **RcppArmadillo**. If you are using a mac and having installation issues, try installing homebrew or xcode prior to installing **Rcpp** and **RcppArmadillo**. If RcppArmadillo is still having installation issues try running:
-```
-mkdir ~/.R
-echo PKG_LIBS=\"\" > ~/.R/Makevars
-```
+*CONFINED* is implemented in R and requires packages **Rcpp** and **RcppArmadillo**. If you are using a mac and having installation issues, try installing homebrew or xcode prior to installing **Rcpp** and **RcppArmadillo**. 
 
-After installing the necessary packages, please ensure that you have also downloaded the file **rcppCCA.cpp** and put it in the same directory as **CONFINED.R**. **rcppCCA.cpp** contains the functions for performing CCA. Our CCA algorithm is entirely based on that of R package **CCA** by Gonzalez and Dejean. We simply translated their code into C++ code using packages from **RcppArmadillo**, and all credit for the algorithm goes to them.
+You can simply install *CONFINED* using **devtools**
+```
+devtools::install_github("cozygene/CONFINED")
+```
+Please see troubleshooting at the bottom for compilation issues.
+
 
 ## Usage
 As input, *CONFINED* takes mandatory arguments:
@@ -46,7 +47,9 @@ results<-CONFINED(X1=dat1, X2=dat2, t=3000, k=10, outfile="demo")
 ```
 
 _CONFINED_ will then save the files
-
+-  *demo_CONFINED_ranked_features.txt* A file containing the list of features as sorted by *CONFINED*'s feature selection step
+-  *demo_X2_CONFINED_components_t_3000.txt* A file containing an _n_ by _
+-  demo_X1_CONFINED_components_t_3000.txt
 
 You can also use the components to predict various sources of biological variability. We provide two files of cell-type proportion estimates from the reference-based algorithm of Houseman et al.[3] as an example:
 ```
@@ -60,42 +63,139 @@ The call to sapply will return a matrix where each entry _ij_ corresponds to the
 
 
 ## An ultra-fast implementation for canonical correlation analysis (CCA)
-If you only wish to use this software for performing quick canonical correlation analysis, simply download the **rcppCCA.cpp** file and ensure you have installed packages **Rcpp** and **RcppArmadillo**. Afterwards, CCA can be run with the following code:
+If you only wish to use this software for performing quick canonical correlation analysis, it can be accessed from the *CONFINED* package:
 ```
-library(Rcpp)
-library(RcppArmadillo)
-sourceCpp("rcppCCA.cpp")
-#General function for solving CCA
-#Takes two matrices, X,Y of size mXn_1 and mXn_2, where m>n_1,n_2
-CCA = function (X, Y){
-  # Check that the input's valid
-  if(dim(X)[1] != dim(Y)[1]){
-    stop("Unequal number of rows in the datasets. Ensure that the matrices are in correct orientation, 
-          e.g. the matrix is not transposed. Else, try taking the union of the rows.")
-  }
-  if(dim(X)[2] > dim(X)[1]){
-    stop("The number of columns cannot exceed the number of rows (decomposition will fail).")
-  }
-  tmp<-doRCCA(X, Y)
-  #loadings that project the data into maximally correlated space
-  A<-tmp[[1]] 
-  B<-tmp[[2]]
-  
-  #there are only d canonical varibles
-  d = min(c(dim(A)[2], dim(B)[2]))
-  # s = min(dim(Y_dataframe)[1],dim(X_dataframe)[1]) - 1.
-  A = A[,1:d]
-  B = B[,1:d]
-  
-  #return the canonical variables (after doing some centering)
-  U = getUV(X, A)
-  V = getUV(Y, B)
-  return(list(A= A, B= B, U = U, V = V))
-}
-
+CONFINED(CCA)
 ```
 _A_ and _B_ are the loadings that will project _X_ and _Y_ into maximally correlated space. _U=XA_ and _V=YB_ are defined as the canonical variables of _X_ and _Y_, where the columns of _X_ and _Y_ have been centered in order to make the columns of U orthogonal to each other as well as the columns of V orthogonal to each other. 
 
+Our CCA algorithm is entirely based on that of R package **CCA** by Gonzalez and Dejean. We simply translated their code into C++ code using packages from **RcppArmadillo**, and all credit for the algorithm goes to them.
+
+
+##Troubleshooting
+OSX (Mac) may have a problem where "math.h" is not found. This can usually be mitigated by running in the Terminal:
+```
+xcode-select --install
+```
+
+Another common problem on OSX (Mac) is an error concerning "lgfortran" or "quadmath." Below, we list steps suggested by [The Coatless Professor](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/). On that website, there are invaluable troubleshooting steps. Here, we will attempt to give the smallest number of required steps to take. Please visit the link for further details.
+### R >= 3.5.x
+<details><summary>Steps to take</summary>
+Copy and paste this into your Terminal window:
+```
+########### Xcode CLI
+
+# Headless install of Xcode CLI
+# Based on a script by Timothy Sutton, MIT licensed 2013 - 2014
+# The code used is given at:
+# https://github.com/timsutton/osx-vm-templates/blob/ce8df8a7468faa7c5312444ece1b977c1b2f77a4/scripts/xcode-cli-tools.sh#L8-L14
+
+# Check if the Xcode CLI tool directory exists.
+# See technical note: https://developer.apple.com/library/content/technotes/tn2339/_index.html#//apple_ref/doc/uid/DTS40014588-CH1-WHAT_IS_THE_COMMAND_LINE_TOOLS_PACKAGE_
+# Note: This is not a rigorous check... So, if a user has deleted contents
+# inside the folder but left the folder intact, then this will _not_ trigger
+# an installation
+if [ ! -d "/Library/Developer/CommandLineTools" ]; then
+
+  # Create a temporary file for the header
+  touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+
+  # Figure out the correct Xcode CLI for the given mac OS
+  PROD=$(sudo softwareupdate -l |
+    grep "\*.*Command Line" |
+    tail -n 1 | awk -F"*" '{print $2}' |
+    sed -e 's/^ *//' |
+    tr -d '\n')
+
+  # Install Xcode CLI    
+  sudo softwareupdate -i "$PROD" --verbose;
+
+  rm -rf /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+else
+  echo "Xcode CLI is installed..."  
+fi
+
+########### clang6
+
+# Download and Install the clang6 binary 
+# Download ~440mb -> 2 gb installed
+curl -O https://cran.r-project.org/bin/macosx/tools/clang-6.0.0.pkg
+sudo installer -pkg clang-6.0.0.pkg -target /
+```
+Enter your password, then enter:
+```
+rm -rf clang-6.0.0.pkg
+
+# Create an R environment file if it doesn't exist to store a modified path
+# VARIABLE
+if [ ! -e "~/.Renviron" ] ; then
+   touch ~/.Renviron
+fi
+
+# Add the clang6 binary path to R's local paths
+echo 'PATH="/usr/local/clang6/bin:${PATH}"' >> ~/.Renviron
+
+########### gfortran
+
+# Download and install the gfortran used in R 3.5.0
+curl -O https://cloud.r-project.org/bin/macosx/tools/gfortran-6.1.pkg
+sudo installer -pkg gfortran-6.1.pkg -target /
+```
+Enter your password once more (if prompted), and lastly:
+```
+rm -rf gfortran-6.1.pkg
+
+# Establish a symlink of gfortran into /usr/local/bin
+sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
+```
+
+If the above does not work and you've upgraded from R 3.0.0-3.3.3, try removing the old gfortran build, then reinstall the latest gfortran build:
+```
+# Download installer into working directory
+curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+
+# Remove _files_ associated with the binary
+for file in $(tar tfz gfortran-4.8.2-darwin13.tar.bz2); do
+sudo rm -f /$file; 
+done
+
+# Remove empty _folders_ associated with the binary
+for file in $(tar tfz gfortran-4.8.2-darwin13.tar.bz2); do 
+sudo rmdir -p /$file; 
+done
+
+# Delete the installer
+rm -rf gfortran-4.8.2-darwin13.tar.bz2
+
+# Run the above step again
+curl -O https://cloud.r-project.org/bin/macosx/tools/gfortran-6.1.pkg
+sudo installer -pkg gfortran-6.1.pkg -target /
+rm -rf gfortran-6.1.pkg
+
+# Establish a symlink of gfortran into /usr/local/bin
+sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
+```
+</p>
+</details>
+## 3.4.x
+The same link from the 3.5.x section will still be of help. You may try installing the tools from The coatless professor listed [here](https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg)
+
+## 3.0.0-3.3.x
+Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/)
+Open the terminal and make sure xcode and gcc are installed:
+```
+xcode-select --install
+```
+Choose "Install" and verify that it was installed:
+```
+gcc --version
+```
+Now type:
+```
+cd /Applications/Utilities
+curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
+```
 
 
 [1]Yun  Liu,  Martin  J  Aryee,  Leonid  Padyukov,  M  Daniele  Fallin,  Espen  Hesselberg,  Arni Runarsson,  Lovisa  Reinius,  Nathalie  Acevedo,  Margaret  Taub,  Marcus  Ronninger,  Klementy  Shchetynsky,  Annika  Scheynius,  Juha  Kere,  Lars  Alfredsson,  Lars  Klareskog,
@@ -105,4 +205,3 @@ Tomas  J  Ekstrom,  and  Andrew  P  Feinberg.   Epigenome-wide association  data
 
 
 
-# CONFINED

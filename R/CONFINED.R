@@ -114,6 +114,10 @@ CONFINED<-function(X1, X2, t, k, thresh=.95, outfile="", saveOP=TRUE){
   X1_ccs<-t(X1[feats[1:t], ])%*%tmp$U
   X2_ccs<-t(X2[feats[1:t], ])%*%tmp$V
 
+  #Return only the top k components
+  X1_ccs<-X1_ccs[,1:k]
+  X2_ccs<-X2_ccs[,1:k]
+
   if(saveOP){
     message("Writing files...")
     if(outfile == ""){
