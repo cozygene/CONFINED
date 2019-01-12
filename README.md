@@ -184,7 +184,7 @@ devtools::install_github("cozygene/CONFINED")
 </p>
 </details>
 
-### 3.4.x
+### R 3.4.x
 <details><summary>Instructions</summary>
 The same link from the 3.5.x section will still be of help. You may try installing <a href="https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg">these tools</a> from The coatless professor.
 
@@ -197,7 +197,7 @@ devtools::install_github("cozygene/CONFINED")
 </details>
 
 
-### 3.0.0-3.3.x
+### R 3.0.0-3.3.x
 <details><summary>Instructions</summary>
 
 Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/).
