@@ -15,7 +15,7 @@ Please see troubleshooting at the bottom for compilation issues.
 As input, *CONFINED* takes mandatory arguments:
 - Two matrices of size _m_ by _n1_ and _m_ by _n2_ (the number of rows is the same but not necessarily the same number of columns), where _m_ > both _n1_ and _n2_
 -  _t_ the number of features (methylation sites) to use
--  _k_ the number of components to save
+-  _k_ the number of components to save (can save up to min{_n1_, _n2_ components})
 
 The following inputs are optional:
 -  _saveOP_ boolean, save the output (_CONFINED_ components for each dataset and the ranked list of features) or not 
@@ -29,11 +29,10 @@ The following inputs are optional:
 
 We provide two subsets of whole-blood methylation datasets from Liu et al.[1] and Hannum et al.[2] for an example of CONFINED's usage. 
 
-First load the **CONFINED.R** file into R:
+First load the **CONFINED** packages into R:
 ```
-source("CONFINED.R")
+library(CONFINED)
 ```
-_Note_ it is critical that the file **rcppCCA.cpp** is in the same directory as the working environment. If you wish to override this setting, please change line 9 in the **CONFINED.R** file to point to the proper directory and file. 
 
 Then, load the datasets:
 ```
@@ -80,9 +79,10 @@ xcode-select --install
 
 Another common problem on OSX (Mac) is an error concerning "lgfortran" or "quadmath." Below, we list steps suggested by [The Coatless Professor](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/). On that website, there are invaluable troubleshooting steps. Here, we will attempt to give the smallest number of required steps to take. Please visit the link for further details.
 ### R >= 3.5.x
-<details><summary>Steps to take</summary>
+<details><summary>Instructions</summary>
 Copy and paste this into your Terminal window:
-```
+
+``` 
 ########### Xcode CLI
 
 # Headless install of Xcode CLI
@@ -177,10 +177,16 @@ sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
 ```
 </p>
 </details>
+
 ## 3.4.x
+<details><summary>Instructions</summary>
 The same link from the 3.5.x section will still be of help. You may try installing the tools from The coatless professor listed [here](https://github.com/rmacoslib/r-macos-rtools/releases/download/v1.1.0/macos-rtools-1.1.0.pkg)
+</p>
+</details>
 
 ## 3.0.0-3.3.x
+<details><summary>Instructions</summary>
+
 Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/)
 Open the terminal and make sure xcode and gcc are installed:
 ```
@@ -196,7 +202,8 @@ cd /Applications/Utilities
 curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
 sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 ```
-
+</p>
+</details>
 
 [1]Yun  Liu,  Martin  J  Aryee,  Leonid  Padyukov,  M  Daniele  Fallin,  Espen  Hesselberg,  Arni Runarsson,  Lovisa  Reinius,  Nathalie  Acevedo,  Margaret  Taub,  Marcus  Ronninger,  Klementy  Shchetynsky,  Annika  Scheynius,  Juha  Kere,  Lars  Alfredsson,  Lars  Klareskog,
 Tomas  J  Ekstrom,  and  Andrew  P  Feinberg.   Epigenome-wide association  data  implicate dna methylation as an intermediary of genetic risk in rheumatoid arthritis. *Nature Biotechnology*, 31:142 EP –, 01 2013.
