@@ -2,5 +2,6 @@
 
 export(CCA)
 export(CONFINED)
+importFrom(Rcpp,evalCpp)
 importFrom(Rcpp,sourceCpp)
 useDynLib(CONFINED, .registration = TRUE)

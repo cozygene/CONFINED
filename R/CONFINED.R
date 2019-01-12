@@ -139,4 +139,5 @@ CONFINED<-function(X1, X2, t, k, thresh=.95, outfile="", saveOP=TRUE){
 
 #' @useDynLib CONFINED, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom Rcpp evalCpp
 NULL
