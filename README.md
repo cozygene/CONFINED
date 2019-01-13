@@ -80,7 +80,61 @@ xcode-select --install
 Another common problem on OSX (Mac) is an error concerning "lgfortran" or "quadmath." Below, we list steps suggested by [The Coatless Professor](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/). On that website, there are invaluable troubleshooting steps. Here, we will attempt to give the smallest number of required steps to take. Please visit the link for further details.
 ### R >= 3.5.x
 <details><summary>Instructions</summary>
-  <details><summary>Via terminal</summary>
+ <details><summary>Download/Install through GUI</summary>
+  Install the latest version of clang from cran <a href="https://cran.r-project.org/bin/macosx/tools/clang-6.0.0.pkg">here</a> and install gfortran from CRAN here <a href="https://cran.r-project.org/bin/macosx/tools/gfortran-6.1.pkg">here</a>. Once those are installed, copy and paste into your terminal:
+
+```
+  # Create an R environment file if it doesn't exist to store a modified path
+# VARIABLE
+if [ ! -e "~/.Renviron" ] ; then
+   touch ~/.Renviron
+fi
+
+# Add the clang6 binary path to R's local paths
+echo 'PATH="/usr/local/clang6/bin:${PATH}"' >> ~/.Renviron
+
+# Establish a symlink of gfortran into /usr/local/bin
+sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
+```
+
+If the above does not work and you've upgraded from R 3.0.0-3.3.3, try removing the old gfortran build, then reinstall the latest gfortran build:
+```
+# Download installer into working directory
+curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+
+# Remove _files_ associated with the binary
+for file in $(tar tfz gfortran-4.8.2-darwin13.tar.bz2); do
+sudo rm -f /$file; 
+done
+
+# Remove empty _folders_ associated with the binary
+for file in $(tar tfz gfortran-4.8.2-darwin13.tar.bz2); do 
+sudo rmdir -p /$file; 
+done
+
+# Delete the installer
+rm -rf gfortran-4.8.2-darwin13.tar.bz2
+
+# Run the above step again
+curl -O https://cloud.r-project.org/bin/macosx/tools/gfortran-6.1.pkg
+sudo installer -pkg gfortran-6.1.pkg -target /
+rm -rf gfortran-6.1.pkg
+
+# Establish a symlink of gfortran into /usr/local/bin
+sudo ln -s /usr/local/gfortran/bin/gfortran /usr/local/bin/gfortran
+```
+
+Now, return to R and try installing *CONFINED* using:
+```
+devtools::install_github("cozygene/CONFINED")
+```
+
+ </p>
+</details>
+
+
+
+  <details><summary>Download/Install via terminal</summary>
 Copy and paste this into your Terminal window:
 
 ``` 
