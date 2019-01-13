@@ -136,7 +136,7 @@ devtools::install_github("cozygene/CONFINED")
 
 
 
-If the above steps still were unsuccessful, try installing XCode CLI reinstalling clang/gfortran.
+If the above steps still were unsuccessful, try installing XCode CLI and reinstalling clang/gfortran.
 Copy and paste this into your Terminal window:
 
 ``` 
