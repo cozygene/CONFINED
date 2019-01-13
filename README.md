@@ -81,7 +81,7 @@ Another common problem on OSX (Mac) is an error concerning "lgfortran" or "quadm
 ### R >= 3.5.x
 <details><summary>Instructions</summary>
  <details><summary>Download/Install through GUI</summary>
-  Install the latest version of clang from cran <a href="https://cran.r-project.org/bin/macosx/tools/clang-6.0.0.pkg">here</a> and install gfortran from CRAN here <a href="https://cran.r-project.org/bin/macosx/tools/gfortran-6.1.pkg">here</a>. Once those are installed, copy and paste into your terminal:
+  Install the latest version of clang from CRAN <a href="https://cran.r-project.org/bin/macosx/tools/clang-6.0.0.pkg">here</a> and install gfortran from CRAN here <a href="https://cran.r-project.org/bin/macosx/tools/gfortran-6.1.pkg">here</a>. Once those are installed, copy and paste into your terminal:
 
 ```
   # Create an R environment file if it doesn't exist to store a modified path
