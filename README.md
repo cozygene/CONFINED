@@ -14,17 +14,17 @@ Please see troubleshooting at the bottom for compilation issues.
 ## Usage
 As input, *CONFINED* takes mandatory arguments:
 - Two matrices of size _m_ by _n1_ and _m_ by _n2_ (the number of rows is the same but not necessarily the same number of columns), where _m_ > both _n1_ and _n2_
--  _t_ the number of features (methylation sites) to use
--  _k_ the number of components to save (can save up to min{_n1_, _n2_} components)
+-  _t_ - the number of features (methylation sites) to use (a sparsity parameter)
+-  _k_ - the number of components to save (can save up to min{_n1_, _n2_} components)
 
 The following inputs are optional:
--  _saveOP_ boolean, save the output (_CONFINED_ components for each dataset and the ranked list of features) or not 
--  _outfile_ the prefix for saving the output files (default is "Xi_CONFINED_components.txt" and "CONFINED_ranked_features.txt")
--  _thresh_ The threshold for determining the rank of the low-rank approximation of the input matrices in the feature-selection step of the _CONFINED_ algorithm. The default is .95, and if there are no canonical variables with correlation > _thresh_, the rank is set to 1.
+-  _saveOP_ - boolean, save the output (_CONFINED_ components for each dataset and the ranked list of features) or not 
+-  _outfile_ - the prefix for saving the output files (default is "Xi_CONFINED_components.txt" and "CONFINED_ranked_features.txt")
+-  _thresh_ - The threshold for determining the rank of the low-rank approximation of the input matrices in the feature-selection step of the _CONFINED_ algorithm. The default is .95, and if there are no canonical variables with correlation > _thresh_, the rank is set to 1.
 
 *CONFINED* returns a list containing two items:
--  _X1comps_ the _k_ components for dataset1 produced by _CONFINED_ using _t_ features
--  _X2comps_ the _k_ components for dataset2 produced by _CONFINED_ using _t_ features
+-  _X1comps_ - the _k_ components for dataset1 produced by _CONFINED_ using _t_ features
+-  _X2comps_ - the _k_ components for dataset2 produced by _CONFINED_ using _t_ features
 
 ### Demo
 We provide two subsets of whole-blood methylation datasets from Liu et al.[1] and Hannum et al.[2] for an example of CONFINED's usage. Download the demo files <a href="https://mj-thompson.github.io/data/CONFINED_demo.zip">here</a>.
@@ -46,9 +46,9 @@ results<-CONFINED(X1=dat1, X2=dat2, t=3000, k=10, outfile="demo")
 ```
 
 _CONFINED_ will then save the files
--  *demo_CONFINED_ranked_features.txt* A file containing the list of features as sorted by *CONFINED*'s feature selection step
--  *demo_X2_CONFINED_components_t_3000.txt* A file containing an _n_ by _
--  demo_X1_CONFINED_components_t_3000.txt
+-  *demo_CONFINED_ranked_features.txt* - A file containing the list of features as sorted by *CONFINED*'s feature selection step
+-  *demo_X2_CONFINED_components_t_3000.txt* - A file containing an _n1_ by _k_ matrix of the _k_ _CONFINED_ components for the individuals in the first dataset
+-  *demo_X1_CONFINED_components_t_3000.txt* - A file containing an _n1_ by _k_ matrix of the _k_ _CONFINED_ components for the individuals in the first dataset
 
 You can also use the components to predict various sources of biological variability. We provide two files of cell-type proportion estimates from the reference-based algorithm of Houseman et al.[3] as an example:
 ```
