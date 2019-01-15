@@ -254,7 +254,7 @@ devtools::install_github("cozygene/CONFINED")
 </details>
 
 
-### R 3.0.0-3.3.x
+### R 3.3.x
 <details><summary>Instructions</summary>
 
 Detailed instructions are provided by The coatless professor [here](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x-before-r-3.4.0/).
