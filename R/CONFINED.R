@@ -60,7 +60,7 @@ CCA = function (X, Y){
 get_ranked_features = function (X_, Y_, thresh_=.95){
   #First get a low rank form of the canonical variables
   tmp = CCA(X_,Y_)
-  ncol_=sum(sapply(1:10, function(i) cor(tmp$U[,i], tmp$V[,i]))>= thresh_)
+  ncol_=sum(sapply(1:dim(tmp$U)[2], function(i) cor(tmp$U[,i], tmp$V[,i]))>= thresh_)
   if(ncol_ < 1){
     message("Select lower correlation threshold, all canonical variables
             have correlation < thresh")
