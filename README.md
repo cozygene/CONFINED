@@ -76,6 +76,12 @@ OSX (Mac) may have a problem where "math.h" is not found. This can usually be mi
 ```
 xcode-select --install
 ```
+or, alternatively on Mojave:
+```
+sudo installer -pkg \
+/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg \
+-target /
+```
 
 Another common problem on OSX (Mac) is an error concerning "lgfortran" or "quadmath." Below, we list steps suggested by [The Coatless Professor](https://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-macos/). On that website, there are invaluable troubleshooting steps. Here, we will attempt to give the smallest number of required steps to take. Please visit the link for further details.
 ### R >= 3.5.x
